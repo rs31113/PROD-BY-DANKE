@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CART</title>
+    <link rel="stylesheet" href="{% static 'css/page-load.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+{% include 'header.html' %}
+
+<div class="container">
+    <h2 style="font-weight: bold;">CART</h2>
+    <hr class="line-top">
+    {% for item in cart_items %}
+    <div class="cart-item">
+        <div class="info" style="margin-right: 25px;" onclick="redirectToProductPage('{{ item.product.article }}')">
+            <div class="name">{{ item.product.name }}</div>
+            <div class="size">Size: {{ item.size }}</div>
+        </div>
+        <div class="quantity-price">
+            <div class="quantity">
+                <form action="{% url 'cart:update_cart' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="decrement">-</button>
+                    <span>{{ item.quantity }}</span>
+                    <button type="submit" name="action" value="increment" {% if disable_increment %}disabled{% endif %}>+</button>
+                </form>
+            </div>
+            <div style="margin-top: 7px;">{{ item.product.price }} ₽</div>
+        </div>
+        <div class="delete">
+            <form action="{% url 'cart:delete_item' item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    <img src="{% static 'img/delete.png' %}" alt="Delete" width="16" height="16">
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    <hr class="line-bottom">
+    <form method="post">
+        {% csrf_token %}
+        {% for form in promocode_form %}
+        {{ form }}
+        <button type="submit" class="button btn-primary" name="action" value="apply_promocode">APPLY</button>
+    </form>
+    <p style="color: brown">{{ promocode_response }}</p>
+    {% endfor %}
+    <div class="price">
+        Subtotal: {{ total_price }} ₽
+    </div>
+
+    <div class="customer-info">
+    <form method="post" class="customer-info-form">
+        {% csrf_token %}
+        <h2>Contacts</h2>
+        {% for form in contact_info %}
+        <div class="form-group">
+            {{ form.errors }}
+            <label>{{ form.label }}:</label>
+            {{ form }}
+        </div>
+        {% endfor %}
+        {% csrf_token %}
+        <h2>Delivery</h2>
+        {% for form in delivery_info %}
+        <div class="form-group">
+            {{ form.errors }}
+            <label>{{ form.label }}:</label>
+            {{ form }}
+        </div>
+        {% endfor %}
+        <div id="delivery-form">
+            <div class="radio-container">
+                <label style="font-weight: bold; margin-bottom: -10px;">Delivery method:</label><br>
+                {% for delivery in deliveries %}
+                <input type="radio" id="option{{ delivery.id }}" name="delivery" value="{{ delivery.id }}" {% if forloop.first %}checked{% endif %}>
+                <label for="option{{ delivery.id }}">{{ delivery.name }} - {{ delivery.price }} ₽</label><br>
+                {% endfor %}
+            </div>
+
+            <div id="total-price-info" style="margin-top: 10px;" class="total-price">
+                Total: <span id="total-price" data-base-price="{{ total_price }}"></span> ₽
+            </div>
+        </div>
+        <button type="submit" value="new_order" name="action" class="btn btn-primary">SUBMIT ORDER</button>
+    </form>
+    </div>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
+<script src="{% static 'js/page-load.js' %}"></script>
+
+</body>
+{% include 'footer.html' %}
+</html>

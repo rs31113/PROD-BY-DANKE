@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+</head>
+<body>
+    <footer>
+        <div class="footer-buttons">
+            <a href="{% url 'terms:terms' %}">TERMS</a>
+            <a href="{% url 'privacy:privacy' %}">PRIVACY</a>
+        </div>
+        <div class="text">
+            <p>© PROD. BY DANKE 2025</p>
+        </div>
+        <div class="signature">
+            <p>
+                this site was developed by <a href="https://t.me/rrshafikov" class="signature-link" style="font-weight: bold;">rrshafikov</a>
+            </p>
+        </div>
+
+    </footer>
+</body>
+</html>

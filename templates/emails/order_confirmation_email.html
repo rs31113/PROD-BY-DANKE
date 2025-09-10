@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Заказ принят!</title>
+</head>
+<body>
+    <p>
+        Здравствуйте, {{ name }}!<br>
+        Заказ <strong>№{{ order_id }}</strong> принят.
+    </p>
+
+    <p><strong>Состав заказа:</strong></p>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.product.name }} - {{ item.size }} - {{ item.quantity }} шт. - {{ item.product.price }} ₽</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Платежная информация:</strong></p>
+    <p>
+        Сумма со скидкой: {{ total_price }} ₽<br>
+        Скидка: {{ discount }} %<br>
+        Доставка ({{ delivery_method }}): {{ delivery_price }} ₽<br>
+        <strong>Всего: {{ amount }} ₽</strong>
+    </p>
+
+    <p>По всем вопросам обращайтесь на почту prodbydanke@gmail.com, указав номер заказа.</p>
+
+    <p>С уважением,<br><strong>PROD. BY DANKE</strong></p>
+</body>
+</html>

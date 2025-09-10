@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINKS</title>
+    <link rel="stylesheet" href="{% static 'css/page-load.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tour.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contacts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+{% include 'header.html' %}
+
+<div class="container">
+    {% for cat in categories %}
+        <h2 style="font-weight: bold; color: white;">{{ cat.name|upper }}</h2>
+        <p class="music-links">
+            {% for link in cat.links.all %}
+                <a href="{{ link.url }}">{{ link.label }}</a>{% if not forloop.last %} | {% endif %}
+            {% empty %}
+                <a class="music-links" style="color: darkred;">coming soon</a>
+            {% endfor %}
+        </p>
+    {% empty %}
+        <h2 style="font-weight: bold; color: white;">LINKS</h2>
+        <p class="music-links" style="color: darkred;">coming soon</p>
+    {% endfor %}
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/page-load.js' %}"></script>
+<script>
+document.querySelectorAll('.music-links a').forEach(link => {
+    link.setAttribute('target', '_blank');
+});
+</script>
+
+</body>
+{% include 'footer.html' %}
+</html>

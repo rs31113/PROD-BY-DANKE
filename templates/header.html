@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+</head>
+<body>
+
+
+<header>
+    <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <span>&#9776;</span>
+    </div>
+
+    <div class="menu-close" id="menuClose"
+         onclick="window.closeLightboxFromHeader && window.closeLightboxFromHeader()"
+         aria-label="Close photo" role="button">
+        <span>&#10005;</span>
+    </div>
+
+    <div class="left-btn-container">
+        <a href="{% url 'gallery:gallery' %}" style="margin-left: 10px;" class="header-link">GALLERY</a>
+        <a href="{% url 'shop:catalog' %}" class="header-link">SHOP</a>
+        <a href="{% url 'signup:signup' %}" class="header-link">SIGNUP</a>
+        <a href="{% url 'contacts:contacts' %}" class="header-link">LINKS</a>
+    </div>
+
+    <a href="{% url 'main:main' %}" class="header-link logo">
+        <p>prod. by danke</p>
+    </a>
+
+    <div class="right-btn-container">
+        <a href="{% url 'cart:cart' %}" class="header-link">
+            <span class="cart-items-count">{{ cart_items_count }}</span>
+            <img class="cart" src="{% static 'img/cart.png' %}" alt="cart">
+        </a>
+    </div>
+</header>
+
+<div id="overlay">
+    <div id="menu" class="menu">
+        <a href="{% url 'gallery:gallery' %}" class="header-link">GALLERY</a>
+        <a href="{% url 'shop:catalog' %}" class="header-link">SHOP</a>
+        <a href="{% url 'signup:signup' %}" class="header-link">SIGN UP</a>
+        <a href="{% url 'contacts:contacts' %}" class="header-link">LINKS</a>
+    </div>
+    <div class="menu-footer">{% include 'footer.html' %}</div>
+</div>
+
+<script src="{% static 'js/header.js' %}"></script>
+
+</body>
+</html>

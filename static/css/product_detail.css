@@ -1,0 +1,214 @@
+:root {}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg) !important;
+    cursor: default;
+}
+
+.carousel {
+    width: 80%;
+    margin: 0 auto 20px;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    height: clamp(320px, 70vh, 820px);
+    background: var(--bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carousel-item {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 240ms ease;
+    will-change: opacity;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.carousel-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    cursor: pointer !important;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.thumbnail-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    gap: 6px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 160ms ease, opacity 160ms ease;
+}
+
+.thumbnail.thumb-active {
+    border-color: var(--accent);
+}
+
+.container {
+    font-family: Courier New, monospace;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+@media (max-width: 767px) {
+    .card-content { align-items: center; }
+}
+
+.card-content select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.size-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: true;
+    flex-wrap: wrap;
+}
+
+.size-option {
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.size-option.selected {
+    border: 2px solid var(--accent);
+}
+
+.size-option.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    border: 1px solid gray;
+    background-color: lightgray;
+    pointer-events: none;
+}
+
+.btn-primary {
+    background-color: var(--text) !important;
+    color: var(--bg) !important;
+    border-color: var(--text) !important;
+    transition: background-color 0.5s ease !important;
+}
+.btn-primary:hover { background-color: gray !important; }
+
+#add-to-cart-form .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.quantity-selector {
+    margin-top: 10px;
+    display: flex;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.quantity-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bg);
+    cursor: pointer;
+}
+
+.quantity-display {
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.description::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--bg);
+    margin-top: 20px;
+}
+
+.notification {
+    font-family: Courier New, monospace;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.show-notification {
+    font-family: Courier New, monospace;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 767px) {
+    .carousel-inner { height: clamp(240px, 52vh, 560px); }
+
+    .carousel-item { align-items: flex-end; }
+
+    .carousel { margin-bottom: 0 !important; }
+    .thumbnail-container.mt-3 {
+        margin-top: 0 !important;
+        margin-bottom: 12px;
+        gap: 4px;
+    }
+}

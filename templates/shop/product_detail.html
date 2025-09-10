@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/page-load.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+{% include 'header.html' %}
+
+<div class="container product-card">
+    <div class="row">
+        <div class="col-md-6 carousel-container">
+            <div id="productCarousel" class="carousel">
+                <div class="carousel-inner">
+                    {% for photo in product.photos.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img
+                            src="{{ photo.image.url }}"
+                            class="carousel-image"
+                            alt="Image of {{ product.name }}"
+                            data-caption="{{ product.name|default:'' }}"
+                            data-index="{{ forloop.counter0 }}"
+                        >
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" onclick="prevSlide()">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+                <button class="carousel-control-next" onclick="nextSlide()">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </div>
+
+            <div class="thumbnail-container mt-3">
+                {% for photo in product.photos.all %}
+                <img src="{{ photo.image.url }}" class="thumbnail" onclick="changeCarouselSlide({{ forloop.counter0 }})" alt="Thumbnail {{ forloop.counter }}">
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-6 card-content">
+            <h2 style="font-weight: bold;">{{ product.name }}</h2>
+            <p style="font-size: 20px;">{{ product.price }} ₽</p>
+
+            <div class="size-selector">
+                {% for size, size_info in available_sizes.items %}
+                <div onclick="selectSize(this)" class="size-option {% if size_info.disabled %}disabled{% endif %}" data-quantity="{{ size_info.quantity }}">
+                    {{ size }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="quantity-selector">
+                <button class="quantity-button decrease-quantity" disabled>-</button>
+                <span class="quantity-display">1</span>
+                <button class="quantity-button increase-quantity">+</button>
+            </div>
+
+            <form action="{% url 'cart:add_item' product.article %}" method="post" id="add-to-cart-form">
+                {% csrf_token %}
+                <input type="hidden" name="size" id="selected-size">
+                <input type="hidden" name="quantity" class="quantity-input" value="1">
+                <button type="submit" id="add-to-cart-button" class="btn btn-primary mt-3 {% if product.is_out_of_stock or all_disabled %}disabled{% endif %}">
+                    {% if product.is_out_of_stock or all_disabled %}
+                        Out of Stock
+                    {% else %}
+                        В корзину
+                    {% endif %}
+                </button>
+            </form>
+
+            <p class="description">{{ product.description|safe }}</p>
+        </div>
+    </div>
+</div>
+
+<div id="lightbox" class="lightbox hidden">
+  {% include 'header.html' %}
+  <div class="lightbox-photo">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <div class="lightbox-footer">
+    <div class="lb-left"></div>
+    <div class="lb-center">
+      <button id="lb-prev" class="nav-btn">&#8249;</button>
+      <button id="lb-next" class="nav-btn">&#8250;</button>
+    </div>
+    <div class="lb-right" id="lb-caption"></div>
+  </div>
+</div>
+
+{% if messages %}
+  <div class="notification" id="notification">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script src="{% static 'js/product_detail.js' %}"></script>
+<script src="{% static 'js/page-load.js' %}"></script>
+
+</body>
+{% include 'footer.html' %}
+</html>

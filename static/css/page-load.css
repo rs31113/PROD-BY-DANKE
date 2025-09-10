@@ -1,0 +1,27 @@
+:root {
+    --bg: black;
+    --text: white;
+    --accent: darkred;
+}
+
+.container {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+.container.page-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.main-content {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+.main-content.page-visible {
+    opacity: 1 !important;
+    transform: translateY(0);
+}

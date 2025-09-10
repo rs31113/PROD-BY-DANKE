@@ -1,0 +1,27 @@
+:root {}
+
+html, body {
+    cursor: default;
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.signup-link {
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.signup-link:hover {
+    color: var(--accent) !important;
+}
+
+.accept {
+    font-size: 0.75rem;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

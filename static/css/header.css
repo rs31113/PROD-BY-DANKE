@@ -1,0 +1,222 @@
+:root {
+    --bg: black;
+    --text: white;
+    --accent: darkred;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.left-btn-container,
+.right-btn-container,
+.menu-icon,
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.left-btn-container,
+.right-btn-container {
+    width: auto;
+    text-align: left;
+}
+
+.left-btn-container {
+    gap: 4px;
+}
+.left-btn-container .header-link {
+    padding: 8px 6px;
+}
+
+.left-btn-container .header-link:first-child {
+    margin-left: 0 !important;
+}
+
+.header-link {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+    color: var(--text);
+    font-family: "Courier New", monospace;
+    line-height: 1;
+}
+.header-link:hover {
+    color: gray;
+    transition: color 0.3s ease;
+}
+
+/* Корзина справа */
+.right-btn-container a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.cart {
+    height: 32px;
+    width: auto;
+    display: block;
+}
+.cart-items-count {
+    font-size: 15px;
+    line-height: 1;
+}
+
+/* Бургер */
+.menu-icon {
+    display: none;
+}
+
+.menu-icon span {
+    font-size: 28px;
+    line-height: 1;
+    display: inline-block;
+    color: var(--text);
+    cursor: pointer;
+    margin-left: 0 !important;      /* перекрываем инлайн -35px из HTML */
+}
+
+/* ====== ЦЕНТР (ЛОГО) — ВСЕГДА В ГЕОМ. ЦЕНТРЕ ====== */
+.logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    min-width: 0;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+}
+.logo p {
+    margin: 0;
+    color: var(--accent);
+    white-space: nowrap;            /* не переносим строку */
+    line-height: 1.1;
+    font-weight: bold;
+    font-size: clamp(14px, 1.8vw, 22px); /* базовый адаптив (десктоп) */
+}
+.logo:hover {
+    color: var(--accent);
+}
+
+/* ====== АДАПТИВ ====== */
+@media screen and (min-width: 990px) {
+    .menu-icon {
+        display: none;
+    }
+    .left-btn-container {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 989px) {
+    .left-btn-container {
+        display: none;              /* на мобилках только бургер слева */
+    }
+    .menu-icon {
+        display: flex;
+    }
+}
+
+/* Телефоны: центр — чуть крупнее, не переносим, резерв под иконки */
+@media (max-width: 450px) {
+    .logo {
+        max-width: calc(100vw - 140px); /* место под бургер + корзину */
+    }
+    .logo p {
+        font-size: clamp(16px, 5vw, 20px); /* крупнее на телефонах */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;          /* если совсем узко — троеточие */
+    }
+}
+
+/* Очень узкие — чуть компактнее иконки */
+@media (max-width: 360px) {
+    .menu-icon span {
+        font-size: 24px;
+    }
+    .cart {
+        height: 26px;
+    }
+}
+
+/* Выравниваем бургер по вертикали на мобилках (у глифа заниженная базовая линия) */
+@media (max-width: 989px) {
+    .menu-icon {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    .menu-icon span {
+        display: block;
+        line-height: 1;
+        transform: translateY(-3px);
+    }
+}
+
+.menu {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg);
+    padding: 20px;
+    z-index: 3001;
+}
+#overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: var(--bg);
+    z-index: 3000;
+    transition: display 0.5s ease;
+}
+.menu a {
+    display: block;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.menu-footer {
+    position: fixed;
+    top: 80%;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 60px;
+}
+
+.menu-close {
+    display: none;
+    align-items: center;
+}
+
+.menu-close span {
+    font-size: 26px;
+    line-height: 1;
+    display: inline-block;
+    color: var(--text);
+    cursor: pointer;
+    margin-left: 0 !important;
+}
+
+@media (max-width: 989px) {
+    body.lightbox-open .menu-icon { display: none; }
+    body.lightbox-open .menu-close { display: flex; }
+}
+

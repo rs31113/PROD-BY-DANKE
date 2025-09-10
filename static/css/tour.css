@@ -1,0 +1,47 @@
+:root {}
+
+.container {
+    font-family: "Courier New", monospace;
+    text-align: center;
+    margin-top: 80px;
+    max-width: 600px;
+    font-size: 20px;
+    flex-grow: 1;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contacts {
+    margin-left: 10px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Courier New", monospace;
+    padding: 0;
+    display: flex;
+    background-color: var(--bg) !important;
+    flex-direction: column;
+    cursor: default;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+.offer-line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.offer-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

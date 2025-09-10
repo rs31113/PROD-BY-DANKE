@@ -1,0 +1,21 @@
+:root {}
+
+html, body {
+    cursor: default;
+}
+
+.music-links {
+    color: var(--text);
+}
+
+.music-links a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+    margin-bottom: 30px;
+}
+
+.music-links a:hover {
+    text-decoration: none;
+    color: var(--accent);
+}
+
