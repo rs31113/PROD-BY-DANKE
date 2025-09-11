@@ -27,3 +27,6 @@ media/
 
 # Node (если вдруг)
 node_modules/
+
+# reg.ru
+passenger_wsgi.py
